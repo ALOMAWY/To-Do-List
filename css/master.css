@@ -1,0 +1,100 @@
+:root {
+  font-size: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+p {
+  margin: 0;
+}
+
+body {
+  max-height: 100vh;
+}
+
+input {
+  outline: none;
+  border: none;
+}
+input:focus {
+  outline: none;
+  border: none;
+}
+
+.container {
+  height: 100%;
+  margin: auto;
+}
+.container .control-section {
+  margin-top: 100px;
+  padding: 25px;
+  background-color: #eee;
+  border-radius: 35px;
+}
+.container .control-section input {
+  border: 3px solid #fff;
+  border-radius: 20px;
+}
+.container .control-section input:focus {
+  border-color: #2d9900;
+}
+.container .list-holder {
+  background-color: #eee;
+  padding: 25px;
+  margin-top: 100px;
+  overflow: hidden;
+  border-radius: 50px;
+}
+.container .list-holder .list .task {
+  background-color: #fff;
+  width: 100%;
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-radius: 25px;
+}
+.container .list-holder .list .task .title {
+  width: 50%;
+  overflow-x: auto;
+  text-wrap: nowrap;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.container .list-holder .list .task-date {
+  font-weight: normal;
+}
+.container .list-holder .list .task .delete {
+  position: relative;
+}
+.container .list-holder .list .task .delete .remove {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border-radius: 20px;
+  z-index: 2;
+}
+.container .list-holder .list .task .delete svg {
+  z-index: 1;
+}
+.container .list-holder .list .task .delete:hover svg {
+  background-color: rgb(253, 172, 172) !important;
+  border-color: rgb(253, 172, 172) !important;
+}

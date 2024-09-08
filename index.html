@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple To Do List</title>
+
+    <link rel="stylesheet" href="css/library/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/library/all.min.css" />
+    <link rel="stylesheet" href="css/library/normalize.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- <link rel="stylesheet" href="css/normalize.css" /> -->
+    <link rel="stylesheet" href="css/master.css" />
+
+    <!-- Get Font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Get Font  -->
+  </head>
+  <body>
+    <div class="container">
+      <section
+        class="control-section w-100 d-flex align-items-center justify-content-between gap-3"
+      >
+        <input
+          id="title"
+          type="text"
+          class="p-3 w-75"
+          maxlength="100"
+          placeholder="Your To Do"
+        />
+        <div
+          id="add"
+          class="add text-center btn btn-success p-2 flex-grow-1 h-100 text-uppercase fw-bold"
+        >
+          Add
+        </div>
+      </section>
+
+      <section class="list-holder">
+        <div
+          class="tasks-info d-flex align-items-center justify-content-evenly my-3"
+        >
+          <p class="fw-bold">Tasks Number : <span id="tasks-number">0</span></p>
+          <p id="removeAll" class="btn btn-danger">
+            REMOVE ALL
+            <span class="ms-1"
+              ><i class="fa-solid fa-trash text-secondary text-white"></i
+            ></span>
+          </p>
+        </div>
+
+        <div id="list" class="list d-flex flex-column gap-3"></div>
+      </section>
+    </div>
+    <script src="js/libs/bootstrap.bundle.min.js"></script>
+    <script src="js/libs/all.min.js"></script>
+    <script src="dist/index.js"></script>
+  </body>
+</html>
