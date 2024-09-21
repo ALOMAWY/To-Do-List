@@ -134,41 +134,41 @@ if (list) {
             let parentElement = target.parentNode;
             let removedElement = parentElement.parentNode;
             let removedElementId = removedElement.getAttribute("data-id");
+            let id;
             if (removedElementId) {
-                if (deleteElementFromLocalStorege(removedElementId) < 1) {
-                    localStorage.clear();
-                    if (removeAllTasks) {
-                        removeAllTasks === null || removeAllTasks === void 0 ? void 0 : removeAllTasks.classList.remove("btn-danger");
-                        removeAllTasks === null || removeAllTasks === void 0 ? void 0 : removeAllTasks.classList.add("btn-secondary");
-                        removeAllTasks === null || removeAllTasks === void 0 ? void 0 : removeAllTasks.classList.add("disabled");
-                    }
+                id = +removedElementId;
+            }
+            createdTasks = createdTasks.filter((task) => task.id != id);
+            if (deleteElementFromLocalStorege() < 1) {
+                localStorage.clear();
+                if (removeAllTasks) {
+                    removeAllTasks === null || removeAllTasks === void 0 ? void 0 : removeAllTasks.classList.remove("btn-danger");
+                    removeAllTasks === null || removeAllTasks === void 0 ? void 0 : removeAllTasks.classList.add("btn-secondary");
+                    removeAllTasks === null || removeAllTasks === void 0 ? void 0 : removeAllTasks.classList.add("disabled");
                 }
-                else {
-                    if (removeAllTasks) {
-                        removeAllTasks === null || removeAllTasks === void 0 ? void 0 : removeAllTasks.classList.add("btn-danger");
-                        removeAllTasks === null || removeAllTasks === void 0 ? void 0 : removeAllTasks.classList.remove("btn-secondary");
-                        removeAllTasks === null || removeAllTasks === void 0 ? void 0 : removeAllTasks.classList.remove("disabled");
-                    }
+            }
+            else {
+                if (removeAllTasks) {
+                    removeAllTasks === null || removeAllTasks === void 0 ? void 0 : removeAllTasks.classList.add("btn-danger");
+                    removeAllTasks === null || removeAllTasks === void 0 ? void 0 : removeAllTasks.classList.remove("btn-secondary");
+                    removeAllTasks === null || removeAllTasks === void 0 ? void 0 : removeAllTasks.classList.remove("disabled");
                 }
-                removedElement.remove();
-                if (tasksNumberSpan) {
-                    let parseIntTasksNums = parseInt(tasksNumberSpan.innerHTML);
-                    tasksNumberSpan.innerHTML = `${parseIntTasksNums - 1}`;
-                }
+            }
+            removedElement.remove();
+            if (tasksNumberSpan) {
+                let parseIntTasksNums = parseInt(tasksNumberSpan.innerHTML);
+                tasksNumberSpan.innerHTML = `${parseIntTasksNums - 1}`;
             }
         }
     });
 }
 // Deleta Task As ID
-function deleteElementFromLocalStorege(taskId) {
-    let id = +taskId;
-    let dataFromLocalStorege = window.localStorage.getItem("tasks");
-    if (dataFromLocalStorege) {
-        let tasksFromStorege = JSON.parse(dataFromLocalStorege);
-        let tasksWithOutRemovedTask = tasksFromStorege.filter((task) => +task.id != +taskId);
-        window.localStorage.setItem("tasks", JSON.stringify(tasksWithOutRemovedTask));
-        if (typeof tasksWithOutRemovedTask.length == "number")
-            return tasksWithOutRemovedTask.length;
+function deleteElementFromLocalStorege() {
+    window.localStorage.setItem("tasks", JSON.stringify(createdTasks));
+    let storegeTasks = window.localStorage.getItem("tasks");
+    let tasksNumber = 0;
+    if (storegeTasks) {
+        tasksNumber = JSON.parse(storegeTasks).length;
     }
-    return 0;
+    return tasksNumber;
 }

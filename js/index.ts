@@ -179,32 +179,39 @@ if (list) {
 
     if (target.classList.contains("remove")) {
       let parentElement = target.parentNode as HTMLElement;
+
       let removedElement = parentElement.parentNode as HTMLElement;
-      let removedElementId: string | null =
-        removedElement.getAttribute("data-id");
+
+      let removedElementId = removedElement.getAttribute("data-id");
+
+      let id: number;
 
       if (removedElementId) {
-        if (deleteElementFromLocalStorege(removedElementId) < 1) {
-          localStorage.clear();
-          if (removeAllTasks) {
-            removeAllTasks?.classList.remove("btn-danger");
-            removeAllTasks?.classList.add("btn-secondary");
-            removeAllTasks?.classList.add("disabled");
-          }
-        } else {
-          if (removeAllTasks) {
-            removeAllTasks?.classList.add("btn-danger");
-            removeAllTasks?.classList.remove("btn-secondary");
-            removeAllTasks?.classList.remove("disabled");
-          }
-        }
+        id = +removedElementId;
+      }
 
-        removedElement.remove();
-        if (tasksNumberSpan) {
-          let parseIntTasksNums = parseInt(tasksNumberSpan.innerHTML);
+      createdTasks = createdTasks.filter((task) => task.id != id);
 
-          tasksNumberSpan.innerHTML = `${parseIntTasksNums - 1}`;
+      if (deleteElementFromLocalStorege() < 1) {
+        localStorage.clear();
+        if (removeAllTasks) {
+          removeAllTasks?.classList.remove("btn-danger");
+          removeAllTasks?.classList.add("btn-secondary");
+          removeAllTasks?.classList.add("disabled");
         }
+      } else {
+        if (removeAllTasks) {
+          removeAllTasks?.classList.add("btn-danger");
+          removeAllTasks?.classList.remove("btn-secondary");
+          removeAllTasks?.classList.remove("disabled");
+        }
+      }
+
+      removedElement.remove();
+      if (tasksNumberSpan) {
+        let parseIntTasksNums = parseInt(tasksNumberSpan.innerHTML);
+
+        tasksNumberSpan.innerHTML = `${parseIntTasksNums - 1}`;
       }
     }
   });
@@ -212,26 +219,17 @@ if (list) {
 
 // Deleta Task As ID
 
-function deleteElementFromLocalStorege(taskId: string): number {
-  let id: number = +taskId;
+function deleteElementFromLocalStorege(): number {
+  window.localStorage.setItem("tasks", JSON.stringify(createdTasks));
 
-  let dataFromLocalStorege = window.localStorage.getItem("tasks");
-  if (dataFromLocalStorege) {
-    let tasksFromStorege = JSON.parse(dataFromLocalStorege);
+  let storegeTasks = window.localStorage.getItem("tasks");
 
-    let tasksWithOutRemovedTask = tasksFromStorege.filter(
-      (task: Task) => +task.id != +taskId
-    );
+  let tasksNumber = 0;
 
-    window.localStorage.setItem(
-      "tasks",
-      JSON.stringify(tasksWithOutRemovedTask)
-    );
-
-    if (typeof tasksWithOutRemovedTask.length == "number")
-      return tasksWithOutRemovedTask.length;
+  if (storegeTasks) {
+    tasksNumber = JSON.parse(storegeTasks).length;
   }
-  return 0;
+  return tasksNumber;
 }
 
 // Interfaces
